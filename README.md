@@ -1,6 +1,8 @@
 # Gladiatus Hack Script
 
-This script will play automatically your gladiator. I reach him level 100 without playing very much! I created it with selenium (I really love it) and ruby. The game sucks, you can make automate scripts that plays by their own. Fail! One day I'll make a better text-based rpg that you will have to think a bit. In the meantime, hack it as there is no tomorrow.  
+This script will play automatically your gladiator. It opens the browser and starts the clicking (so it's undetectable)... 
+
+I reach level 100 without playing! I created it with selenium (I really love it) and ruby. The game sucks, you can make automate scripts that plays by their own. Fail! One day I'll make a better text-based rpg that you will have to think a bit. In the meantime, hack it as there is no tomorrow.  
 
 ### Usage
 In the **glad-methods.rb file** you will find the methods that plays your character. Just change the login and password. If you are from another country, change the necessary files to represent your language. 
