@@ -3,14 +3,16 @@
 @total_time = 0
 
 def login
-	@driver = Selenium::WebDriver.for :firefox
-	@driver.get "http://s1.gladiatus.gr/game/"
-	@driver.find_element(:id, "login_username").click
-	@driver.find_element(:id, "login_username").clear
-	@driver.find_element(:id, "login_username").send_keys "yourusername"
-	@driver.find_element(:id, "login_password").clear
-	@driver.find_element(:id, "login_password").send_keys "yourpassword"
-	@driver.find_element(:id, "loginsubmit").click
+
+  @driver = Selenium::WebDriver.for :firefox
+  @driver.get "http://s1.gladiatus.gr/game/"
+  @driver.find_element(:id, "login_username").click
+  @driver.find_element(:id, "login_username").clear
+  @driver.find_element(:id, "login_username").send_keys "yourusername"
+  @driver.find_element(:id, "login_password").clear
+  @driver.find_element(:id, "login_password").send_keys "yourpassword"
+  @driver.find_element(:id, "loginsubmit").click
+
 end
 
 def login2
@@ -27,7 +29,7 @@ end
 
 def get_time_of_next_attack
       # From Attacks
-      cooldown = @driver.find_elements(:id, "cooldown_bar_text_expedition") 
+      cooldown = @driver.find_elements(:id, "cooldown_bar_text_expedition")
       time = cooldown.first.text
       hours = time.match(/\d+/)
       minutes = time.match(/:\d+/)#.gsub(":", "")
@@ -40,7 +42,7 @@ def get_time_of_next_attack
     	puts "Expedition: #{@exp_time}"
 
       # From Mpountroumi
-      cooldown = @driver.find_elements(:id, "cooldown_bar_text_dungeon") 
+      cooldown = @driver.find_elements(:id, "cooldown_bar_text_dungeon")
       time = cooldown.first.text
       hours = time.match(/\d+/)
       minutes = time.match(/:\d+/)#.gsub(":", "")
@@ -51,9 +53,9 @@ def get_time_of_next_attack
       @mpou_time = 0
       @mpou_time = hours*60*60 + minutes * 60 + seconds + 30
 	    puts "Mpountroumi: #{@mpou_time}"
-     
+
       # From Arena
-      cooldown = @driver.find_elements(:id, "cooldown_bar_text_arena") 
+      cooldown = @driver.find_elements(:id, "cooldown_bar_text_arena")
       time = cooldown.first.text
       hours = time.match(/\d+/)
       minutes = time.match(/:\d+/)#.gsub(":", "")
@@ -67,7 +69,7 @@ def get_time_of_next_attack
 
 
       # From Cosmoarena
-      cooldown = @driver.find_elements(:id, "cooldown_bar_text_ct") 
+      cooldown = @driver.find_elements(:id, "cooldown_bar_text_ct")
       time = cooldown.first.text
       hours = time.match(/\d+/)
       minutes = time.match(/:\d+/)#.gsub(":", "")
@@ -86,14 +88,14 @@ def get_time_of_next_attack
 	@times << @cosmo_arena_time
 
 	@times.sort!
-	
+
 	@total_time = @times[0]
 	#if @mpou_time < @exp_time
-	#	@total_time = @mpou_time	
-	#else 
+	#	@total_time = @mpou_time
+	#else
 	#	@total_time = @exp_time
 	#end
-	
+
 	puts "ATTACK!" if @total_time == 30
 end
 
@@ -129,7 +131,7 @@ def arena_attack
 end
 
 def cosmoarena_attack
-  @driver.find_element(:xpath, "(//a[@class='cooldown_bar_link'])[4]").click  
+  @driver.find_element(:xpath, "(//a[@class='cooldown_bar_link'])[4]").click
   @driver.find_element(:link, "Αρένα Κοσμοσυρροής").click
   @cosmo_table = []
   (2..6).each do |i|
@@ -142,12 +144,12 @@ def cosmoarena_attack
 end
 
 def gladjob_one
-  @driver.execute_script("switchMenu(1)")	
+  @driver.execute_script("switchMenu(1)")
   @driver.find_element(:link, "Δουλειά").click
   @driver.find_element(:id, "content").click
   unless @driver.find_elements(:id, "ticker1").size == 1
     Selenium::WebDriver::Support::Select.new(@driver.find_element(:id, "workTime")).select_by(:text, "1 Ώρα")
-    @driver.find_element(:id, "doWork").click 
+    @driver.find_element(:id, "doWork").click
   end
    `killall -9 firefox`
    sleep 3720
@@ -155,12 +157,12 @@ def gladjob_one
 end
 
 def gladjob_eight
-  @driver.execute_script("switchMenu(1)")	
+  @driver.execute_script("switchMenu(1)")
   @driver.find_element(:link, "Δουλειά").click
   @driver.find_element(:id, "content").click
   unless @driver.find_elements(:id, "ticker1").size == 1
     Selenium::WebDriver::Support::Select.new(@driver.find_element(:id, "workTime")).select_by(:text, "8 Ώρες")
-    @driver.find_element(:id, "doWork").click 
+    @driver.find_element(:id, "doWork").click
   end
    `killall -9 firefox`
    sleep 3720
@@ -179,13 +181,13 @@ def show_tagma_enemies
 end
 
 def max_job_per_hour
-  @driver.execute_script("switchMenu(1)")	
+  @driver.execute_script("switchMenu(1)")
   @driver.find_element(:link, "Δουλειά").click
   @driver.find_element(:id, "content").click
   @driver.find_element(:id, "job_row_4").click
    unless @driver.find_elements(:id, "ticker1").size == 1
     Selenium::WebDriver::Support::Select.new(@driver.find_element(:id, "workTime")).select_by(:text, "1 Ώρα")
-    @driver.find_element(:id, "doWork").click 
+    @driver.find_element(:id, "doWork").click
    end
    `killall -9 firefox`
    puts  "3720"
